@@ -3,5 +3,10 @@
     "name": "Minehut",
     "ip": "minehut.com",
     "port": 25565
+  },
+  {
+    "name": "Torrent",
+    "ip": "torrentsmp.com",
+    "port": 25565
   }
 ]
