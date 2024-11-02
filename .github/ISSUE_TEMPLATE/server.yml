@@ -25,3 +25,11 @@ body:
       description: The port of the server
     validations:
       required: true
+  - type: checkboxes
+    id: accepts_transfers
+    attributes:
+      label: Accepts Transfers
+      description: Confirm if this server accepts transfers
+      options:
+        - label: This server accepts transfers
+          required: true
