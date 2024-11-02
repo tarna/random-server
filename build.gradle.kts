@@ -1,10 +1,12 @@
 plugins {
+    application
     kotlin("jvm") version "2.0.0"
     kotlin("plugin.serialization") version "1.5.21"
+    id("com.gradleup.shadow") version "8.3.4"
 }
 
 group = "dev.tarna"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -26,4 +28,16 @@ dependencies {
 
 kotlin {
     jvmToolchain(21)
+}
+
+tasks {
+    shadowJar {
+        archiveBaseName.set("RandomServer")
+        archiveVersion.set("")
+        archiveClassifier.set("")
+    }
+}
+
+application {
+    mainClass.set("dev.tarna.randomserver.MainKt")
 }
