@@ -8,7 +8,3 @@ import io.ktor.client.request.*
 suspend fun fetchServers() {
     servers = client.get("https://raw.githubusercontent.com/tarna/random-server/refs/heads/main/servers.json").body<List<Server>>()
 }
-
-fun randomServer(): Server {
-    return servers.random()
-}

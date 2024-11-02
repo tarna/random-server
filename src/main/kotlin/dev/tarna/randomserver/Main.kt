@@ -4,6 +4,8 @@ import dev.tarna.randomserver.utils.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.http.*
+import io.ktor.serialization.kotlinx.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -19,9 +21,9 @@ import net.minestom.server.timer.TaskSchedule
 import net.minestom.server.world.DimensionType
 
 lateinit var client: HttpClient
-lateinit var servers: List<Server>
-lateinit var randomServer: Server
-lateinit var serverStatus: ServerStatus
+var servers: List<Server> = emptyList()
+var randomServer: Server? = null
+var serverStatus: ServerStatus? = null
 
 fun main() {
     val minecraftServer = MinecraftServer.init()
@@ -33,6 +35,9 @@ fun main() {
                 isLenient = true
                 explicitNulls = false
             })
+
+            register(ContentType.Text.Html, KotlinxSerializationConverter(Json))
+            register(ContentType.Text.Plain, KotlinxSerializationConverter(Json))
         }
     }
 
@@ -46,8 +51,8 @@ fun main() {
 
     scheduler.submitTask {
         GlobalScope.launch {
-            randomServer = randomServer()
-            serverStatus = getServerStatus(randomServer)
+            randomServer = servers.randomOrNull() ?: return@launch
+            serverStatus = getServerStatus(randomServer ?: return@launch)
         }
         TaskSchedule.seconds(10)
     }
@@ -75,18 +80,23 @@ fun main() {
 
     globalEventHandler.addListener(PlayerSpawnEvent::class.java) { event ->
         val player = event.player
-        val randomServer = randomServer()
         scheduler.scheduleNextTick {
-            player.sendPacket(TransferPacket(randomServer.ip, randomServer.port))
+            val server = randomServer ?: return@scheduleNextTick
+            player.sendPacket(TransferPacket(server.ip, server.port))
         }
     }
 
     globalEventHandler.addListener(ServerListPingEvent::class.java) { event ->
         val data = ResponseData()
-        data.description = Component.text(serverStatus.motd.raw.joinToString("\n"))
-        data.online = serverStatus.players.online
-        data.maxPlayer = serverStatus.players.max
-        data.version = serverStatus.version
+        if (serverStatus == null) {
+            data.description = Component.text("Loading...")
+            event.responseData = data
+            return@addListener
+        }
+        data.description = serverStatus?.motd?.raw?.joinToString("\n")?.let { Component.text(it) }
+        data.online = serverStatus?.players?.online ?: 0
+        data.maxPlayer = serverStatus?.players?.max ?: 0
+        data.version = serverStatus?.version
         event.responseData = data
     }
 
