@@ -1,0 +1,27 @@
+name: Server Request
+description: Request a new server to be added to the list.
+labels: ["Server Request"]
+assignees: ["tarna"]
+
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Server Name
+      description: The name of the server
+    validations:
+      required: true
+  - type: input
+    id: ip
+    attributes:
+      label: IP Address
+      description: The IP address of the server
+    validations:
+      required: true
+  - type: input
+    id: port
+    attributes:
+      label: Port
+      description: The port of the server
+    validations:
+      required: true
