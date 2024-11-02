@@ -12,6 +12,6 @@
   {
     "name": "GlowCraft",
     "ip": "play.glowcraft.org",
-    "port": "25565"
+    "port": 25565
   }
 ]
