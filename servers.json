@@ -8,5 +8,15 @@
     "name": "Torrent",
     "ip": "torrentsmp.com",
     "port": 25565
+  },
+  {
+    "name": "GlowCraft",
+    "ip": "play.glowcraft.org",
+    "port": 25565
+  },
+  {
+    "name": "HyruleGG",
+    "ip": "mc.hyrulegaminggroup.com",
+    "port": 25565
   }
 ]
