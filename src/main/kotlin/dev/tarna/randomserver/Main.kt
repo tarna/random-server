@@ -34,6 +34,7 @@ fun main() {
                 prettyPrint = true
                 isLenient = true
                 explicitNulls = false
+                ignoreUnknownKeys = true
             })
 
             register(ContentType.Text.Html, KotlinxSerializationConverter(Json))
