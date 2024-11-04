@@ -18,5 +18,10 @@
     "name": "HyruleGG",
     "ip": "mc.hyrulegaminggroup.com",
     "port": 25565
-  }
+  },
+  {
+    "name": "HorizonMines",
+    "ip": "HorizonMines.net",
+    "port": 25565
+  } 
 ]
