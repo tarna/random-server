@@ -17,8 +17,8 @@ data class ServerStatus(
     val online: Boolean,
     val protocol: JsonObject,
     val hostname: String,
-    val icon: String,
-    val software: String,
+    val icon: String?,
+    val software: String?,
     val eula_blocked: Boolean,
 ) {
     @Serializable
@@ -36,5 +36,6 @@ data class ServerStatus(
 }
 
 suspend fun getServerStatus(server: Server): ServerStatus {
+    println("Fetching server status for ${server.ip}:${server.port}")
     return client.get("https://api.mcsrvstat.us/3/${server.ip}").body<ServerStatus>()
 }

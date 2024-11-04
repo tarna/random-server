@@ -46,6 +46,7 @@ fun main() {
     scheduler.submitTask {
         GlobalScope.launch {
             fetchServers()
+            println("Fetched ${servers.size} servers")
         }
         TaskSchedule.minutes(5)
     }
@@ -54,6 +55,7 @@ fun main() {
         GlobalScope.launch {
             randomServer = servers.randomOrNull() ?: return@launch
             serverStatus = getServerStatus(randomServer ?: return@launch)
+            println("Random server: ${randomServer?.name} (${randomServer?.ip}:${randomServer?.port})")
         }
         TaskSchedule.seconds(10)
     }
@@ -99,6 +101,12 @@ fun main() {
         data.maxPlayer = serverStatus?.players?.max ?: 0
         data.version = serverStatus?.version
         event.responseData = data
+
+        if (serverStatus?.icon != null) {
+            data.favicon = serverStatus?.icon
+        }
+
+        println("Pinged server: ${serverStatus?.hostname} (${serverStatus?.ip}:${serverStatus?.port})")
     }
 
     val port = EnvUtils.env("PORT", "25565").toInt()
