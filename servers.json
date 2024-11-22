@@ -23,5 +23,10 @@
     "name": "HorizonMines",
     "ip": "152.53.36.168",
     "port": 25565
-  } 
+  },
+  {
+    "name": "Synthetix_Network",
+    "ip": "play.synthetix.host",
+    "port": 25565
+  }
 ]
