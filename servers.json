@@ -25,8 +25,13 @@
     "port": 25565
   },
   {
-    "name": "Synthetix_Network",
+    "name": "Synthetix Network",
     "ip": "play.synthetix.host",
+    "port": 25565
+  },
+  {
+    "name": "corsairemc",
+    "ip": "play.corsairemc.com",
     "port": 25565
   }
 ]
