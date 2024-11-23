@@ -11,15 +11,15 @@ data class ServerStatus(
     val ip: String,
     val port: Int,
     val debug: JsonObject,
-    val motd: Motd,
-    val players: Players,
-    val version: String,
+    val motd: Motd?,
+    val players: Players?,
+    val version: String?,
     val online: Boolean,
-    val protocol: JsonObject,
-    val hostname: String,
+    val protocol: JsonObject?,
+    val hostname: String?,
     val icon: String?,
     val software: String?,
-    val eula_blocked: Boolean,
+    val eula_blocked: Boolean?,
 ) {
     @Serializable
     data class Motd(
