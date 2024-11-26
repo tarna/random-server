@@ -33,5 +33,10 @@
     "name": "corsairemc",
     "ip": "play.corsairemc.com",
     "port": 25565
+  },
+  {
+    "name": "harmonyfallssmp",
+    "ip": "join.harmonyfallssmp.world",
+    "port": 25565
   }
 ]
