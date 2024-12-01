@@ -15,7 +15,7 @@ data class ServerStatus(
     val players: Players?,
     val version: String?,
     val online: Boolean,
-    val protocol: JsonObject?,
+    val protocol: Protocol?,
     val hostname: String?,
     val icon: String?,
     val software: String?,
@@ -32,6 +32,12 @@ data class ServerStatus(
     data class Players(
         val online: Int,
         val max: Int,
+    )
+
+    @Serializable
+    data class Protocol(
+        val name: String,
+        val version: Int
     )
 }
 

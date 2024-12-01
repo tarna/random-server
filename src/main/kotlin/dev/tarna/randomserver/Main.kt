@@ -100,11 +100,18 @@ fun main() {
         data.online = serverStatus?.players?.online ?: 0
         data.maxPlayer = serverStatus?.players?.max ?: 0
         data.version = serverStatus?.version
-        event.responseData = data
 
-        if (serverStatus?.icon != null) {
-            data.favicon = serverStatus?.icon
+        val icon = serverStatus?.icon
+        if (icon != null) {
+            data.favicon = icon
         }
+
+        val version = serverStatus?.protocol?.version
+        if (version != null) {
+            data.protocol = version
+        }
+
+        event.responseData = data
 
         println("Pinged server: ${serverStatus?.hostname} (${serverStatus?.ip}:${serverStatus?.port})")
     }
